@@ -1,0 +1,51 @@
+```{r}
+library(readr)
+library(glmnet)
+
+x_train <- read_csv("~/Desktop/Fall-2022/ML/Group-Project/CSCI-5622-Group-Project/x_train.csv",show_col_types = FALSE)
+y_train <- read_csv("~/Desktop/Fall-2022/ML/Group-Project/CSCI-5622-Group-Project/y_train.csv",show_col_types = FALSE)
+
+x_train['EUI'] = y_train['TOTAL_EUI']
+
+head(x_train)
+set.seed(001)
+split = sort(sample(nrow(x_train), nrow(x_train)*0.7))
+
+train = x_train[split, ]
+test = x_train[-split, ]
+```
+
+## Cross Validation for Lasso
+
+```{r}
+x_train = model.matrix(EUI ~., train)[,-1]
+y_train = train$EUI
+
+x_test = model.matrix(EUI ~., test)[,-1]
+y_test = test$EUI
+
+set.seed(00)
+cross_valid <- cv.glmnet(x_train, y_train, alpha = 1)
+plot(cross_valid)
+```
+
+```{r}
+coef(cross_valid, s = "lambda.min")
+```
+
+```{r}
+bestlam <- cross_valid$lambda.min
+print(bestlam)
+lasso.fit = glmnet(x_train, y_train, alpha = 1, lambda = bestlam)
+lasso.pred = predict(lasso.fit, s = bestlam, newx = x_test)
+mse = mean((lasso.pred - y_test)^2)
+print(mse)
+
+variables = length(lasso.fit$beta)
+lasso_coef = predict(lasso.fit, type="coefficients", s=bestlam)[1:variables,]
+lasso_coef[lasso_coef != 0]
+```
+
+```{r}
+summary(lasso.fit)
+```
