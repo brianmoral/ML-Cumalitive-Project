@@ -1,6 +1,6 @@
 # ML Cumalitive Project - Automated Feature Selection
 
-In this paper we explore the 2012 CBECS to better understand what specific building features contribute the most to energy consumption. Our approach in achieving this objective includes the use of automated feature selection techniques from the wrapper and embedded method families, and the subsequent training of four different ensemble models which are individually evaluated with the SHAP method for greater insight into the effects of the selected features on each model’s power of prediction.
+We explore the 2012 CBECS to better understand what specific building features contribute the most to energy consumption. Our approach in achieving this objective includes the use of automated feature selection techniques from the wrapper and embedded method families, and the subsequent training of four different ensemble models which are individually evaluated with the SHAP method for greater insight into the effects of the selected features on each model’s power of prediction.
 
 ## DATASET
 
@@ -21,3 +21,7 @@ https://www.eia.gov/consumption/commercial/about.php
  - Click the microdata tab in the secondary set of dropdowns
  - The data we are using is 2012 CBECS microdata
  - Explanation of the variables are in the codebook
+
+
+### The paper is under: 
+Parvanov_Morales_Considine_paper-2.pdf
